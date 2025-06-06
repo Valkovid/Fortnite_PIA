@@ -185,6 +185,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetButton = document.getElementById("resetButton");
     if (resetButton) {
         resetButton.innerHTML = '&#x1f501;';
+		resetButton.style.backgroundColor = "transparent"; 	// pas de fond
+		resetButton.style.border = "none";                	// pas de bordure
+		resetButton.style.boxShadow = "none";             	// pas d’ombre éventuelle
+		resetButton.style.outline = "none";               	// pas de contour focus
+		resetButton.style.cursor = "pointer"; 				// 👉 Curseur doigt
+		resetButton.style.fontSize = "20px"; 				// ou 30px si tu veux bien grand
         resetButton.addEventListener("click", () => {
             document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
                 box.checked = false;
