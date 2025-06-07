@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stats - StormZone</title>
+  <link rel="stylesheet" href="css/stats.css">
+  <script src="js/stats.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>StormZone - Statistiques</h1>
+</header>
+
+<nav>
+	<a href="#" onclick="navigateTo('home')">Accueil</a>
+    <a href="#" onclick="navigateTo('pia')">Fortnite PIA</a>    
+	<a href="#" onclick="navigateTo('shop')">Shop</a>
+</nav>
+
+<main>
+  <p>Entrez un nom de joueur pour afficher ses statistiques Fortnite :</p>
+  <input type="text" id="username" placeholder="Nom du joueur">
+  <button onclick="getStats()">Rechercher</button>
+
+  <div id="stats-container" class="stat-grid">
+    <!-- Cartes des stats dynamiques ici -->
+  </div>
+</main>
+
+
+</body>
+</html>
+
