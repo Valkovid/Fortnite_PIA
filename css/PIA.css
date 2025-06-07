@@ -34,15 +34,15 @@ h1 {
 }
 
 .results-count {
-    position: absolute;
-    top: 10px;        /* Distance du haut */
-    right: 10px;      /* Distance de la droite */
-    background: #fff; /* Optionnel : fond blanc pour lisibilité */
+    position: relative; 	/* ou static, selon le contexte */
+    margin: 0 auto;
+    background-color: #1e1e1e;
     padding: 5px 10px;
     border-radius: 8px;
     font-weight: bold;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-	background-color: #1e1e1e;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2)
+    text-align: center;
+    display: inline-block;
 }
 
 .cards {
