@@ -4,7 +4,7 @@ const data = [
         name: "Poltergeist",
         voice: "Rarement",
         grid: "Souvent",
-        danger: "Actif et physique",
+        danger: "Imprévisible",
         speed: "Moyen",
         clues: ["EMF", "Ghost Writing", "Orbes"]
     },
@@ -36,7 +36,7 @@ const data = [
         name: "Duppy",
         voice: "Souvent",
         grid: "Rarement",
-        danger: "Plutôt calme",
+        danger: "Imprévisible",
         speed: "Moyen",
         clues: ["Playful", "EMF", "Orbes"]
     },
@@ -60,7 +60,7 @@ const data = [
         name: "Spirit",
         voice: "Parfois",
         grid: "Souvent",
-        danger: "Moyen",
+        danger: "Moyennement dangereux",
         speed: "Moyen",
         clues: ["Spirit Box", "Playful", "EMF"]
     },
@@ -68,7 +68,7 @@ const data = [
         name: "Basty",
         voice: "Parfois",
         grid: "Rarement",
-        danger: "Moyen",
+        danger: "Moyennement dangereux",
         speed: "Moyen",
         clues: ["Température", "Playful", "EMF"]
     },
@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetButton.style.border = "none";                	// pas de bordure
 		resetButton.style.boxShadow = "none";             	// pas d’ombre éventuelle
 		resetButton.style.outline = "none";               	// pas de contour focus
-		resetButton.style.cursor = "pointer"; 				// 👉 Curseur doigt
-		resetButton.style.fontSize = "20px"; 				// ou 30px si tu veux bien grand
+		resetButton.style.cursor = "pointer"; 			// 👉 Curseur doigt
+		resetButton.style.fontSize = "20px"; 			// ou 30px si tu veux bien grand
         resetButton.addEventListener("click", () => {
             document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
                 box.checked = false;
