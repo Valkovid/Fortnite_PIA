@@ -239,6 +239,16 @@ const LANG = {
             "⚖️ MOYEN": "⚖️ MOYEN",
             "🐢 LENT": "🐢 LENT"
         },
+        modal: {
+            title: "⚠️ Avertissement : Difficulté & Mises à Jour",
+            p1: "🧠 Les comportements des fantômes peuvent varier selon le niveau de difficulté (Facile / Normal / Hard / Expert / Impossible), et selon les mises à jour récentes de la map.",
+            p2: "💡 Les indices présents dans cette application sont basés sur des observations en mode Hard (et inférieur si tout va bien), et certains fantômes peuvent réagir différemment en mode Expert :",
+            li1: "💥 Mouvements dans \"The Grid\"",
+            li2: "☠️ Capacité à tuer",
+            li3: "🏃‍♂️ Vitesse de déplacement",
+            p3: "...peuvent changer de façon imprévisible selon la partie ou après une mise à jour du jeu.",
+            p4: "🎯 Utilisez les informations comme guide de référence, mais faites toujours confiance à vos propres analyses en partie. Restez vigilants, enquêteurs. 👻",
+        },
     },
     en: {
         title: "Phantom Investigation App",
@@ -275,6 +285,16 @@ const LANG = {
             "⚡ RAPIDE": "⚡ FAST",
             "⚖️ MOYEN": "⚖️ MEDIUM",
             "🐢 LENT": "🐢 SLOW"
+        },
+        modal: {
+        title: "⚠️ Warning: Difficulty & Updates",
+        p1: "🧠 Ghost behaviors may vary depending on the difficulty level (Easy / Normal / Hard / Expert / Impossible), and recent updates to the map.",
+        p2: "💡 The clues listed in this app are based on observations in Hard mode (and lower if all goes well), but some ghosts may behave differently in Expert mode :",
+        li1: "💥 Movement in 'The Grid'",
+        li2: "☠️ Ability to kill",
+        li3: "🏃‍♂️ Movement speed",
+        p3: "...can unpredictably change depending on the session or after a game update.",
+        p4: "🎯 Use this information as a reference guide, but always rely on your own in-game analysis. Stay sharp, investigators. 👻",
         },
     },
 };
@@ -333,6 +353,25 @@ function setLanguage(code) {
             label.insertAdjacentText('beforeend', ' ' + lang.cluesLabels[clue]);
         }
     });
+
+    // 🟨 Met à jour le contenu de la modale
+    const modal = document.getElementById("myModal");
+    if (modal) {
+        modal.querySelector("h2").textContent = lang.modal.title;
+        const paragraphs = modal.querySelectorAll("p");
+        if (paragraphs.length >= 4) {
+            paragraphs[0].textContent = lang.modal.p1;
+            paragraphs[1].textContent = lang.modal.p2;
+            paragraphs[2].textContent = lang.modal.p3;
+            paragraphs[3].textContent = lang.modal.p4;
+        }
+        const lis = modal.querySelectorAll("ul li");
+        if (lis.length >= 3) {
+            lis[0].textContent = lang.modal.li1;
+            lis[1].textContent = lang.modal.li2;
+            lis[2].textContent = lang.modal.li3;
+        }
+    }
 
     // Mise à jour bouton de langue
     const langButton = document.getElementById("languageButton");
