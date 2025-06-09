@@ -34,13 +34,15 @@ h1 {
 }
 
 .results-count {
-    position: relative; 	/* ou static, selon le contexte */
+    position: relative;
+
+    /* ou static, selon le contexte */
     margin: 0 auto;
     background-color: #1e1e1e;
     padding: 5px 10px;
     border-radius: 8px;
     font-weight: bold;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2)
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
     text-align: center;
     display: inline-block;
 }
@@ -85,4 +87,51 @@ h1 {
 .nonmatch {
     color: #ff4d4d;
     font-weight: normal;
+}
+
+/* Styles pour le pop-up */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 10% auto;
+
+    /* Ajustez cette valeur pour changer la position verticale */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+
+    /* Ajustez cette valeur pour changer la largeur */
+    max-width: 800px;
+
+    /* Ajustez cette valeur pour définir une largeur maximale */
+    text-align: center;
+    height: auto;
+
+    /* Vous pouvez définir une hauteur fixe si nécessaire */
+}
+
+.close {
+    color: rgb(122, 120, 120);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
