@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Traductions
 const LANG = {
     fr: {
-        title: "Phantom Investigation - par Valkovid",
+        title: "Fortnite - PIA",
         reset: "&#x1f501", // Utilisation de l'icône directement dans le texte de traduction
         grid: "🔧 Grille :",
         yes: "OUI",
@@ -204,7 +204,7 @@ const LANG = {
         }
     },
     en: {
-        title: "Phantom Investigation - by Valkovid",
+        title: "Fortnite - PIA",
         reset: "&#x1f501", // Utilisation de l'icône directement dans le texte de traduction
         grid: "🔧 Grid :",
         yes: "YES",
