@@ -2,114 +2,100 @@
 const data = [
     {
         name: "Poltergeist",
-        voice: "Rarement",
-        grid: "Souvent",
-        danger: "Imprévisible",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚡ RAPIDE",
         clues: ["EMF", "Ghost Writing", "Orbes"]
     },
     {
         name: "Wailing Soul",
-        voice: "Souvent",
-        grid: "Souvent",
-        danger: "Moyennement dangereux",
-        speed: "Lent",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Spirit Box", "EMF", "Orbes"]
     },
     {
         name: "Demon",
-        voice: "Souvent",
-        grid: "Souvent",
-        danger: "Très dangereux",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚡ RAPIDE",
         clues: ["Spirit Box", "Playful", "Ghost Writing"]
     },
     {
         name: "Hupia",
-        voice: "Jamais",
-        grid: "Rarement",
-        danger: "Très passif",
-        speed: "Moyen",
+        grid: "🔁 RAREMENT",
+        danger: "❌ NON LÉTAL",
+        speed: "⚖️ MOYEN",
         clues: ["Température", "EMF", "Orbes"]
     },
     {
         name: "Duppy",
-        voice: "Souvent",
-        grid: "Rarement",
-        danger: "Imprévisible",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "❌ NON LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Playful", "EMF", "Orbes"]
     },
     {
         name: "Vetala",
-        voice: "Souvent",
-        grid: "Rarement",
-        danger: "Dangereux",
-        speed: "Rapide",
+        grid: "🔁 RAREMENT",
+        danger: "🔴 LÉTAL",
+        speed: "⚡ RAPIDE",
         clues: ["Spirit Box", "Ghost Writing", "Orbes"]
     },
     {
         name: "Shy",
-        voice: "Jamais",
-        grid: "Jamais",
-        danger: "Très passif",
-        speed: "Lent",
+        grid: "❌ NON",
+        danger: "❌ NON LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Température", "Playful", "Ghost Writing"]
     },
     {
         name: "Spirit",
-        voice: "Parfois",
-        grid: "Souvent",
-        danger: "Moyennement dangereux",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚖️ MOYEN",
         clues: ["Spirit Box", "Playful", "EMF"]
     },
     {
         name: "Basty",
-        voice: "Parfois",
-        grid: "Rarement",
-        danger: "Moyennement dangereux",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Température", "Playful", "EMF"]
     },
     {
         name: "Gelin",
-        voice: "Parfois",
-        grid: "Jamais",
-        danger: "Inoffensif",
-        speed: "Moyen",
+        grid: "❌ NON",
+        danger: "❌ NON LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Température", "Ghost Writing", "Orbes"]
     },
     {
         name: "Dybbuk",
-        voice: "Souvent",
-        grid: "Souvent",
-        danger: "Très dangereux",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚖️ MOYEN",
         clues: ["Playful", "Ghost Writing", "Orbes"]
     },
     {
         name: "Moroi",
-        voice: "Souvent",
-        grid: "Rarement",
-        danger: "Moyennement dangereux",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚖️ MOYEN",
         clues: ["Spirit Box", "Température", "Orbes"]
     },
     {
         name: "Shade",
-        voice: "Jamais",
-        grid: "Rarement",
-        danger: "Très passif",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "🐢 LENT",
         clues: ["Température", "Playful", "Orbes"]
     },
     {
         name: "Jumbee",
-        voice: "Parfois",
-        grid: "Rarement",
-        danger: "Plutôt calme",
-        speed: "Moyen",
+        grid: "✅ OUI",
+        danger: "🔴 LÉTAL",
+        speed: "⚖️ MOYEN",
         clues: ["Spirit Box", "Température", "EMF"]
     }
 ];
@@ -133,7 +119,7 @@ function update() {
 
     const filtered = data.filter(ghost => {
         const grille = ghost.grid;
-        const grilleMatch = (grille === "Inconnu" || (!oui && !non) || (oui && (grille === "Souvent" || grille === "Rarement" || grille === "Inconnu")) || (non && (grille === "Jamais" || grille === "Inconnu")));
+        const grilleMatch = ((!oui && !non) || (oui && (grille === "yes" || (grille === "✅ OUI" || grille === "🔁 RAREMENT"))) || (non && (grille === "no" || grille === "❌ NON")));
         const cluesMatch = Array.from(selected).every(clue => ghost.clues.includes(clue));
         return grilleMatch && cluesMatch;
     });
@@ -156,7 +142,7 @@ function update() {
         }).join(",<br>");
         card.innerHTML = `
             <h3>${ghost.name}</h3>
-            <p><strong>${window.__LANG__.ghost.voice}&nbsp;:</strong>${ghost.voice}</p>
+
             <p><strong>${window.__LANG__.ghost.grid}&nbsp;:</strong>${ghost.grid}</p>
             <p><strong>${window.__LANG__.ghost.danger}&nbsp;:</strong>${ghost.danger}</p>
             <p><strong>${window.__LANG__.ghost.speed}&nbsp;:</strong>${ghost.speed}</p>
@@ -189,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		resetButton.style.border = "none";                	// pas de bordure
 		resetButton.style.boxShadow = "none";             	// pas d’ombre éventuelle
 		resetButton.style.outline = "none";               	// pas de contour focus
-		resetButton.style.cursor = "pointer"; 			// 👉 Curseur doigt
-		resetButton.style.fontSize = "20px"; 			// ou 30px si tu veux bien grand
+		resetButton.style.cursor = "pointer"; 			    // 👉 Curseur doigt
+		resetButton.style.fontSize = "20px"; 			    // ou 30px si tu veux bien grand
         resetButton.addEventListener("click", () => {
             document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
                 box.checked = false;
@@ -211,9 +197,8 @@ const LANG = {
         clues: "🔎 Indices :",
         matchCount: "👻 :",
         ghost: {
-            voice: "🗣️ Voix",
-            grid: "👁️ Mouvement Grille",
-            danger: "☠️ Dangerosité",
+            grid: "👁️ Grille",
+            danger: "☠️ Danger",
             speed: "🚶 Déplacement",
             clues: "🔍 Indices"
         }
@@ -225,11 +210,10 @@ const LANG = {
         yes: "YES",
         no: "NO",
         clues: "🔎 Clues found:",
-        matchCount: "Matching ghosts:",
+        matchCount: "👻 :",
         ghost: {
-            voice: "🗣️ Voice",
-            grid: "👁️ Grid movement",
-            danger: "☠️ Danger level",
+            grid: "👁️ Grid",
+            danger: "☠️ Danger",
             speed: "🚶 Speed",
             clues: "🔍 Clues"
         }
@@ -269,4 +253,14 @@ window.onload = () => {
 
     window.__LANG__ = lang;
     if (typeof update === "function") update();
+
+    // Afficher le pop-up
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
 };
+
