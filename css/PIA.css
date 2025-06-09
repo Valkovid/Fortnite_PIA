@@ -135,3 +135,46 @@ h1 {
     text-decoration: none;
     cursor: pointer;
 }
+
+.language-selector {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: inline-block;
+}
+
+.language-selector button,
+.language-options button {
+    background-color: #1e1e1e;
+    color: #f0f0f0;               /* texte clair */
+    border: 1px solid #adadad;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;             /* prend toute la largeur du menu */
+    box-sizing: border-box;  /* inclut padding/border dans le width */
+    text-align: left;        /* optionnel : alignement du texte */
+}
+
+/* Optionnel : effet au survol */
+.language-options button:hover {
+    background-color: #2a2a2a;
+}
+
+.language-options {
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    background-color: #1e1e1e;
+    border: 1px solid #888;
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.language-options.visible {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+}
