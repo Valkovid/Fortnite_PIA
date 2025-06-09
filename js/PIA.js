@@ -130,22 +130,23 @@ function update() {
         const card = document.createElement("div");
         card.className = "card";
         const cluesHTML = ghost.clues.map(c => {
+            const translated = window.__LANG__.cluesLabels[c] || c;
             if (selected.size > 0) {
                 if (selected.has(c)) {
-                    return `<span class='highlight'>${c}</span>`;
+                    return `<span class='highlight'>${translated}</span>`;
                 } else {
-                    return `<span class='nonmatch'>${c}</span>`;
+                    return `<span class='nonmatch'>${translated}</span>`;
                 }
             } else {
-                return c;
+                return translated;
             }
         }).join(",<br>");
         card.innerHTML = `
             <h3>${ghost.name}</h3>
 
-            <p><strong>${window.__LANG__.ghost.grid}&nbsp;:</strong>${ghost.grid}</p>
-            <p><strong>${window.__LANG__.ghost.danger}&nbsp;:</strong>${ghost.danger}</p>
-            <p><strong>${window.__LANG__.ghost.speed}&nbsp;:</strong>${ghost.speed}</p>
+            <p><strong>${window.__LANG__.ghost.grid}&nbsp;:</strong>${window.__LANG__.gridLabels[ghost.grid] || ghost.grid}</p>
+            <p><strong>${window.__LANG__.ghost.danger}&nbsp;:</strong>${window.__LANG__.dangerLabels[ghost.danger] || ghost.danger}</p>
+            <p><strong>${window.__LANG__.ghost.speed}&nbsp;:</strong>${window.__LANG__.speedLabels[ghost.speed] || ghost.speed}</p>
             <p><strong>${window.__LANG__.ghost.clues}&nbsp;:</strong><br>${cluesHTML}</p>
         `;
         container.appendChild(card);
@@ -184,13 +185,27 @@ document.addEventListener('DOMContentLoaded', function() {
             update();
         });
     }
+    const langBtn = document.getElementById("languageButton");
+    const langOptions = document.getElementById("languageOptions");
+
+    if (langBtn && langOptions) {
+        langBtn.addEventListener("click", () => {
+            langOptions.classList.toggle("visible");
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!langBtn.contains(e.target) && !langOptions.contains(e.target)) {
+                langOptions.classList.remove("visible");
+            }
+        });
+    }
 });
 
 // Traductions
 const LANG = {
     fr: {
-        title: "Fortnite - PIA",
-        reset: "&#x1f501", // Utilisation de l'icône directement dans le texte de traduction
+        title: "Phantom Investigation App",
+        reset: "&#x1f501",                  // Utilisation de l'icône directement dans le texte de traduction
         grid: "🔧 Grille :",
         yes: "OUI",
         no: "NON",
@@ -201,58 +216,74 @@ const LANG = {
             danger: "☠️ Danger",
             speed: "🚶 Déplacement",
             clues: "🔍 Indices"
-        }
+        },
+        cluesLabels: {
+            "EMF": "EMF",
+            "Ghost Writing": "Ghost Writing",
+            "Orbes": "Orbes",
+            "Spirit Box": "Spirit Box",
+            "Température": "Température",
+            "Playful": "Playful"
+        },
+        gridLabels: {
+            "✅ OUI": "✅ OUI",
+            "🔁 RAREMENT": "🔁 RAREMENT",
+            "❌ NON": "❌ NON"
+        },
+        dangerLabels: {
+            "🔴 LÉTAL": "🔴 LÉTAL",
+            "❌ NON LÉTAL": "❌ NON LÉTAL"
+        },
+        speedLabels: {
+            "⚡ RAPIDE": "⚡ RAPIDE",
+            "⚖️ MOYEN": "⚖️ MOYEN",
+            "🐢 LENT": "🐢 LENT"
+        },
     },
     en: {
-        title: "Fortnite - PIA",
-        reset: "&#x1f501", // Utilisation de l'icône directement dans le texte de traduction
+        title: "Phantom Investigation App",
+        reset: "&#x1f501",                  // Utilisation de l'icône directement dans le texte de traduction
         grid: "🔧 Grid :",
         yes: "YES",
         no: "NO",
-        clues: "🔎 Clues found:",
+        clues: "🔎 Clues :",
         matchCount: "👻 :",
         ghost: {
             grid: "👁️ Grid",
             danger: "☠️ Danger",
             speed: "🚶 Speed",
             clues: "🔍 Clues"
-        }
-    }
+        },
+        cluesLabels: {
+            "EMF": "EMF",
+            "Ghost Writing": "Ghost Writing",
+            "Orbes": "Orbs",
+            "Spirit Box": "Spirit Box",
+            "Température": "Temperature",
+            "Playful": "Playful"
+        },
+        gridLabels: {
+            "✅ OUI": "✅ YES",
+            "🔁 RAREMENT": "🔁 RARELY",
+            "❌ NON": "❌ NO"
+        },
+        dangerLabels: {
+            "🔴 LÉTAL": "🔴 LETHAL",
+            "❌ NON LÉTAL": "❌ NON-LETHAL"
+        },
+        speedLabels: {
+            "⚡ RAPIDE": "⚡ FAST",
+            "⚖️ MOYEN": "⚖️ MEDIUM",
+            "🐢 LENT": "🐢 SLOW"
+        },
+    },
 };
 
 // Charger la langue appropriée au chargement de la page
 window.onload = () => {
-    const userLang = (navigator.language || navigator.userLanguage).slice(0, 2);
-    const lang = LANG[userLang] || LANG["fr"];
-
-    document.title = "Fortnite_PIA";
-    const h1 = document.querySelector("h1");
-    if (h1) h1.textContent = lang.title;
-
-    const resetBtn = document.getElementById("resetButton");
-    if (resetBtn) {
-        resetBtn.innerHTML = lang.reset; // Utilisation du texte de traduction pour le bouton
-        resetBtn.addEventListener("click", () => {
-            document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
-                box.checked = false;
-            });
-            update();
-        });
-    }
-
-    const filterSpans = document.querySelectorAll(".filters span");
-    if (filterSpans[0]) filterSpans[0].textContent = lang.grid;
-    if (filterSpans[1]) filterSpans[1].textContent = lang.clues;
-
-    const labels = document.querySelectorAll(".filters label");
-    if (labels[0]?.childNodes[0]) labels[0].childNodes[0].nodeValue = lang.yes + " ";
-    if (labels[1]?.childNodes[0]) labels[1].childNodes[0].nodeValue = lang.no + " ";
-
-    const resultCount = document.querySelector(".results-count");
-    if (resultCount?.childNodes[0]) resultCount.childNodes[0].textContent = lang.matchCount + " ";
-
-    window.__LANG__ = lang;
-    if (typeof update === "function") update();
+const savedLang = localStorage.getItem("lang");
+const userLang = savedLang || (navigator.language || navigator.userLanguage).slice(0, 2);
+    setLanguage(userLang);
 
     // Afficher le pop-up
     var modal = document.getElementById("myModal");
@@ -264,3 +295,53 @@ window.onload = () => {
     }
 };
 
+function setLanguage(code) {
+    const lang = LANG[code] || LANG["fr"];
+        localStorage.setItem("lang", code); // mémorise la langue
+    window.__LANG__ = lang;
+
+    // Titre et h1
+    document.title = lang.title;
+    const h1 = document.querySelector("h1");
+    if (h1) h1.textContent = lang.title;
+
+    // Bouton de réinitialisation
+    const resetBtn = document.getElementById("resetButton");
+    if (resetBtn) resetBtn.innerHTML = lang.reset;
+
+    // Textes des filtres
+    const filterSpans = document.querySelectorAll(".filters span");
+    if (filterSpans[0]) filterSpans[0].textContent = lang.grid;
+    if (filterSpans[1]) filterSpans[1].textContent = lang.clues;
+
+    // Libellés OUI / NON
+    const labels = document.querySelectorAll(".filters label");
+    if (labels[0]?.childNodes[0]) labels[0].childNodes[0].nodeValue = lang.yes + " ";
+    if (labels[1]?.childNodes[0]) labels[1].childNodes[0].nodeValue = lang.no + " ";
+
+    // Compteur
+    const resultCount = document.querySelector(".results-count");
+    if (resultCount?.childNodes[0]) resultCount.childNodes[0].textContent = lang.matchCount + " ";
+
+    // Mise à jour des libellés des indices cochables
+    document.querySelectorAll(".clue-filter").forEach(input => {
+        const clue = input.getAttribute("data-clue");
+        const label = input.closest("label");
+        if (label && lang.cluesLabels[clue]) {
+            label.innerHTML = '';
+            label.appendChild(input);
+            label.insertAdjacentText('beforeend', ' ' + lang.cluesLabels[clue]);
+        }
+    });
+
+    // Mise à jour bouton de langue
+    const langButton = document.getElementById("languageButton");
+    if (langButton) langButton.textContent = code.toUpperCase();
+
+    // Fermer le menu de langue après sélection
+    const options = document.getElementById("languageOptions");
+    if (options) options.classList.remove("visible");
+
+    // Mettre à jour les cartes
+    update();
+}
