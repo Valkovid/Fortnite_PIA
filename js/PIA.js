@@ -218,12 +218,12 @@ const LANG = {
             clues: "🔍 Indices"
         },
         cluesLabels: {
-            "EMF": "EMF",
-            "Ghost Writing": "Ghost Writing",
-            "Orbes": "Orbes",
-            "Spirit Box": "Spirit Box",
-            "Température": "Température",
-            "Playful": "Playful"
+            "EMF": "🚨 EMF",
+            "Ghost Writing": "✒️ Ghost Writing",
+            "Orbes": "✨ Orbes",
+            "Spirit Box": "🔊 Spirit Box",
+            "Température": "🌡️ Température",
+            "Playful": "😈 Playful"
         },
         gridLabels: {
             "✅ OUI": "✅ OUI",
@@ -265,12 +265,12 @@ const LANG = {
             clues: "🔍 Clues"
         },
         cluesLabels: {
-            "EMF": "EMF",
-            "Ghost Writing": "Ghost Writing",
-            "Orbes": "Orbs",
-            "Spirit Box": "Spirit Box",
-            "Température": "Temperature",
-            "Playful": "Playful"
+            "EMF": "🚨 EMF",
+            "Ghost Writing": "✒️ Ghost Writing",
+            "Orbes": "✨ Orbs",
+            "Spirit Box": "🔊 Spirit Box",
+            "Température": "🌡️ Temperature",
+            "Playful": "😈 Playful"
         },
         gridLabels: {
             "✅ OUI": "✅ YES",
