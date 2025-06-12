@@ -1,93 +1,105 @@
 <!-- Créé avec amour par Valkovid 👻, ne vole pas le code, inspire-toi 😉 -->
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Phantom Investigation - by Valkovid</title>
-        <link rel="manifest" href="manifest.json"/>
-        <link rel="icon" href="icon-192.png?v=2" sizes="192x192" type="image/png"/>
-        <link rel="apple-touch-icon" href="icon-192.png?v=2"/>
+<head>
+    <!-- ===========================
+         📄 Méta et ressources
+    ============================ -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Fortnite PIA</title>
 
-        <!-- Lien vers le fichier CSS externe -->
-        <link rel="stylesheet" href="css/PIA.css"/>
+    <!-- PWA & favicon -->
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="icon" href="icon-192.png?v=2" sizes="192x192" type="image/png"/>
+    <link rel="apple-touch-icon" href="icon-192.png?v=2"/>
 
-        <!-- Script de comptage de visites -->
-        <script src="https://cdn.counter.dev/script.js" data-id="b53a3fb6-7e72-458a-9fbd-9f2105ab6fb7" data-utcoffset="1"></script>
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/PIA.css"/>
 
-        <!-- Script de gestion des langues -->
-        <div class="language-selector">
-            <button id="languageButton">FR</button>
-            <div class="language-options" id="languageOptions">
-                <button onclick="setLanguage('fr')">Français</button>
-                <button onclick="setLanguage('en')">English</button>
-            </div>
+    <!-- Script de comptage de visites -->
+    <script src="https://cdn.counter.dev/script.js" data-id="b53a3fb6-7e72-458a-9fbd-9f2105ab6fb7" data-utcoffset="1"></script>
+</head>
+
+<body>
+
+    <!-- ===========================
+         🌐 Sélecteur de langue
+    ============================ -->
+    <div class="language-selector">
+        <button id="languageButton">FR</button>
+        <div class="language-options" id="languageOptions">
+            <button onclick="setLanguage('fr')">Français</button>
+            <button onclick="setLanguage('en')">English</button>
         </div>
+    </div>
 
-        <!-- Fenêtre modale du pop-up -->
-        <div id="myModal" class="modal">
-            <div class="modal-content"><span class="close">&times;</span>
-                <h2>⚠️ Avertissement : Difficulté & Mises à Jour</h2>
-                <p>
-                    🧠 <strong>Les comportements des fantômes peuvent varier selon le niveau de difficulté (Facile / Normal / Hard / Expert / Impossible)</strong>,  <strong>et selon les mises à jour récentes de la map</strong>. </p>
-                <p>
-                    💡 Les indices présents dans cette application sont <strong>basés sur des observations en mode Hard (et inférieur si tout va bien)</strong>, et  <strong>certains fantômes peuvent réagir différemment en mode Expert</strong> : </p>
-                <ul>
-                    <li>💥 Mouvements dans "The Grid"</li>
-                    <li>☠️ Capacité à tuer</li>
-                    <li>🏃‍♂️ Vitesse de déplacement</li>
-                </ul>
-                <p>
-                    ...peuvent <strong>changer de façon imprévisible</strong> selon la partie ou après une mise à jour du jeu. </p>
-                <p>
-                    🎯 <strong>Utilisez les informations comme guide de référence</strong>, mais faites toujours confiance à  <strong>vos propres analyses en partie</strong>. Restez vigilants, enquêteurs. 👻 </p>
-                
-                <!-- <button id="closeModal">Fermer</button> -->
-            </div>
+    <!-- ===========================
+         ⚠️ Pop-up d'avertissement
+    ============================ -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>⚠️ Avertissement : Difficulté & Mises à Jour</h2>
+            <p>🧠 Les comportements des fantômes peuvent varier selon le niveau de difficulté (Facile / Normal / Hard / Expert / Impossible), et selon les mises à jour récentes de la map.</p>
+            <p>💡 Les indices présents dans cette application sont basés sur des observations en mode Hard (et inférieur si tout va bien), et certains fantômes peuvent réagir différemment en mode Expert :</p>
+            <ul>
+                <li>💥 Mouvements dans "The Grid"</li>
+                <li>☠️ Capacité à tuer</li>
+                <li>🏃‍♂️ Vitesse de déplacement</li>
+            </ul>
+            <p>...peuvent changer de façon imprévisible selon la partie ou après une mise à jour du jeu.</p>
+            <p>🎯 Utilisez les informations comme guide de référence, mais faites toujours confiance à vos propres analyses en partie. Restez vigilants, enquêteurs. 👻</p>
         </div>
-    </head>
-    <body>
-        
-        <!-- Version de l'application -->
-        <div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 12px; color: #ccc; background-color: #1a1a1a; border: 1px solid #444; border-radius: 8px; padding: 4px 10px; z-index: 1000;">
-            Version : V2.6.1
-</div>
-        
-        <!-- Section du titre -->
-        <div class="title-section">
-            <h1>Phantom Investigation - par Valkovid</h1>
+    </div>
+
+    <!-- ===========================
+         🏷️ Version affichée en bas
+    ============================ -->
+    <div class="version-label">
+        Version : V2.8
+    </div>
+
+    <!-- ===========================
+         🧭 Titre principal
+    ============================ -->
+    <div class="title-section">
+        <h1>Phantom Investigation App</h1>
+    </div>
+
+    <!-- ===========================
+         📊 Compteur de résultats
+    ============================ -->
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <div class="results-count app-card">
+            👻 : <span id="count"></span>
         </div>
+    </div>
 
-        <!-- Compteur de résultats -->         
-        <div style="text-align: center; margin-bottom: 1rem;">
-            <div class="results-count">
-                👻 : <span id="count"></span>
-            </div>
-        </div>
+    <!-- ===========================
+         🔧 Filtres de recherche
+    ============================ -->
+    <div class="filters">
+        <span>🔧 Grille :</span>
+        <button id="grille-oui" class="grille-button">OUI</button>
+        <button id="grille-non" class="grille-button">NON</button>
+    </div>
 
-        <!-- Filtres de mouvement détecté -->
-        <div class="filters">
-            <span>🔧 Grille :</span>
-            <label>OUI 
-                <input id="grille-oui" type="checkbox"/>
-            </label>
-            <label>NON 
-                <input id="grille-non" type="checkbox"/>
-            </label>
-        </div>
+    <div class="filters">
+        <span>🔎 Indices :</span>
+        <div id="clueContainer"></div>
+        <button id="resetButton" title="Reset filters"></button>
+    </div>
 
-        <!-- Filtres d'indices trouvés -->
-        <div class="filters">
-            <span>🔎 Indices :</span>
-            <div id="clueContainer"></div>
-            <button id="resetButton" title="Reset filters"></button>
-        </div>
+    <!-- ===========================
+         👻 Cartes fantômes générées
+    ============================ -->
+    <div class="cards" id="ghostCards"></div>
 
-        <!-- Conteneur pour les cartes de fantômes -->
-        <div class="cards" id="ghostCards"></div>
-
-        <!-- Lien vers le fichier JavaScript externe -->
-        <script src="js/PIA.js"></script>
-        <script src="js/IconLoader.js"></script>
-    </body>
+    <!-- ===========================
+         🔗 Scripts JS
+    ============================ -->
+    <script src="js/PIA.js"></script>
+    <script src="js/IconLoader.js"></script>
+</body>
 </html>
