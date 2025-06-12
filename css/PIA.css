@@ -1,7 +1,24 @@
+/* ========================================
+🎨 Variables principales (thème global)
+======================================== */
+
+:root {
+    --bg-dark: #121212;
+    --bg-block: #2b2b2b;
+    --border-light: #444;
+    --text-light: #f0f0f0;
+    --primary-accent: #00e5ff;
+    --danger-accent: #ff5e5e;
+}
+
+/* ========================================
+🌐 Structure générale (fond et base)
+======================================== */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #f0f0f0;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     margin: 0;
     padding: 1rem;
 }
@@ -12,6 +29,10 @@ h1 {
     margin-bottom: 1rem;
 }
 
+/* ========================================
+🔎 Bloc filtres principaux (Grille + Indices)
+======================================== */
+
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -21,31 +42,71 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.filters label {
-    background: #2b2b2b;
-    border: 1px solid #444;
-    padding: 0.4rem 0.8rem;
+/* Grille OUI / NON */
+
+.grille-button {
+    background: var(--bg-block);
+    border: 1px solid var(--border-light);
+    padding: 0.4rem 1rem;
     border-radius: 0.6rem;
     cursor: pointer;
-    border: 1px solid #333;
+    color: var(--text-light);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.2s ease, background 0.2s ease, transform 0.1s;
 }
 
-.filters input[type="checkbox"] {
-    margin-right: 5px;
+.grille-button.active {
+    background: var(--primary-accent);
+    color: black;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary-accent);
+    border-color: var(--primary-accent);
 }
+
+/* Indices générés dynamiquement */
+
+.clue-label {
+    background: var(--bg-block);
+    border: 1px solid var(--border-light);
+    height: 10px;
+    line-height: 10px;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.2s ease, background 0.2s ease, transform 0.1s;
+    padding: 0 0.8rem; /* très léger padding horizontal uniquement */
+}
+
+.clue-label.selected {
+    box-shadow: 0 0 15px var(--primary-accent);
+    border-color: var(--primary-accent);
+}
+
+/* ========================================
+📊 Compteur de résultats
+======================================== */
 
 .results-count {
-    position: relative;    /* ou static, selon le contexte */
+    position: relative;
     margin: 0 auto;
-    background-color: #2b2b2b;
-    border: 1px solid #444;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    padding: 5px 10px;
-    border-radius: 8px;
     font-weight: bold;
     text-align: center;
     display: inline-block;
+    padding: 0.4rem 1rem; /* même padding que les boutons */
+    border-radius: 0.6rem;
+    height: 10px;
+    line-height: 10px;
 }
+
+
+/* ========================================
+👻 Cartes de fantômes
+======================================== */
 
 .cards {
     display: grid;
@@ -55,18 +116,25 @@ h1 {
 
 .card {
     font-size: 0.92rem;
-    background-color: #2b2b2b; /* anciennement #1e1e1e */
-    border: 1px solid #444;    /* ajout de bordure plus claire */
     padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* léger allègement de l’ombre */
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeIn 0.5s ease forwards;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
 }
+
+/* Bloc visuel générique */
+
+.app-card {
+    background: var(--bg-block);
+    border: 1px solid var(--border-light);
+    border-radius: 0.8rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+}
+
+/* ========================================
+✨ Effets et animations
+======================================== */
 
 @keyframes fadeIn {
     to {
@@ -75,22 +143,25 @@ h1 {
     }
 }
 
+/* ========================================
+🎯 Couleurs d’état des indices (cartes)
+======================================== */
+
 .highlight {
     font-weight: bold;
-    color: #00e5ff;
+    color: var(--primary-accent);
 }
 
-.missing-clue {
-    color: #ff5e5e;
-    font-weight: normal;
-}
-
+.missing-clue,
 .nonmatch {
-    color: #ff4d4d;
+    color: var(--danger-accent);
     font-weight: normal;
 }
 
-/* Styles pour le pop-up */
+/* ========================================
+🔔 Fenêtre modale
+======================================== */
+
 .modal {
     display: none;
     position: fixed;
@@ -104,23 +175,14 @@ h1 {
 }
 
 .modal-content {
-    background-color: #2b2b2b;
-    border: 1px solid #444;
+    background-color: var(--bg-block);
+    border: 1px solid var(--border-light);
     margin: 10% auto;
-
-    /* Ajustez cette valeur pour changer la position verticale */
     padding: 20px;
-    border: 1px solid #888;
     width: 90%;
-
-    /* Ajustez cette valeur pour changer la largeur */
     max-width: 800px;
-
-    /* Ajustez cette valeur pour définir une largeur maximale */
     text-align: center;
     height: auto;
-
-    /* Vous pouvez définir une hauteur fixe si nécessaire */
 }
 
 .close {
@@ -131,12 +193,15 @@ h1 {
 }
 
 .close:hover,
-
 .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
 }
+
+/* ========================================
+🌐 Sélecteur de langue
+======================================== */
 
 .language-selector {
     position: absolute;
@@ -148,17 +213,16 @@ h1 {
 .language-selector button,
 .language-options button {
     background-color: #1e1e1e;
-    color: #f0f0f0;               /* texte clair */
+    color: var(--text-light);
     border: 1px solid #adadad;
     padding: 5px 10px;
     cursor: pointer;
     font-family: inherit;
-    width: 100%;             /* prend toute la largeur du menu */
-    box-sizing: border-box;  /* inclut padding/border dans le width */
-    text-align: left;        /* optionnel : alignement du texte */
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
 }
 
-/* Optionnel : effet au survol */
 .language-options button:hover {
     background-color: #2a2a2a;
 }
@@ -181,20 +245,31 @@ h1 {
     pointer-events: auto;
 }
 
+/* ========================================
+🖼️ Icones des indices
+======================================== */
+
 .icon-small {
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
+    width: 18px;
+    height: 18px;
     margin-right: 5px;
+    vertical-align: middle;
 }
 
-.clue-label {
-    background: #1e1e1e;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.6rem;
-    cursor: pointer;
-    border: 1px solid #333;
-    display: inline-flex;
-    align-items: center;
-    margin: 5px;
+/* ========================================
+🏷️ Indicateur de version
+======================================== */
+
+.version-label {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #ccc;
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 4px 10px;
+    z-index: 1000;
 }
