@@ -5,98 +5,98 @@ const data = [
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚡ RAPIDE",
-        clues: ["EMF", "Ghost Writing", "Orbes"]
+        clues: ["emf", "ghost_writing", "orbs"]
     },
     {
         name: "Wailing Soul",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Spirit Box", "EMF", "Orbes"]
+        clues: ["spiritbox", "emf", "orbs"]
     },
     {
         name: "Demon",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚡ RAPIDE",
-        clues: ["Spirit Box", "Playful", "Ghost Writing"]
+        clues: ["spiritbox", "playful", "ghost_writing"]
     },
     {
         name: "Hupia",
         grid: "🔁 RAREMENT",
         danger: "❌ NON LÉTAL",
         speed: "⚖️ MOYEN",
-        clues: ["Température", "EMF", "Orbes"]
+        clues: ["temperature", "emf", "orbs"]
     },
     {
         name: "Duppy",
         grid: "✅ OUI",
         danger: "❌ NON LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Playful", "EMF", "Orbes"]
+        clues: ["playful", "emf", "orbs"]
     },
     {
         name: "Vetala",
         grid: "🔁 RAREMENT",
         danger: "🔴 LÉTAL",
         speed: "⚡ RAPIDE",
-        clues: ["Spirit Box", "Ghost Writing", "Orbes"]
+        clues: ["spiritbox", "ghost_writing", "orbs"]
     },
     {
         name: "Shy",
         grid: "❌ NON",
         danger: "❌ NON LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Température", "Playful", "Ghost Writing"]
+        clues: ["temperature", "playful", "ghost_writing"]
     },
     {
         name: "Spirit",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚖️ MOYEN",
-        clues: ["Spirit Box", "Playful", "EMF"]
+        clues: ["spiritbox", "playful", "emf"]
     },
     {
         name: "Basty",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Température", "Playful", "EMF"]
+        clues: ["temperature", "playful", "emf"]
     },
     {
         name: "Gelin",
         grid: "❌ NON",
         danger: "❌ NON LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Température", "Ghost Writing", "Orbes"]
+        clues: ["temperature", "ghost_writing", "orbs"]
     },
     {
         name: "Dybbuk",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚖️ MOYEN",
-        clues: ["Playful", "Ghost Writing", "Orbes"]
+        clues: ["playful", "ghost_writing", "orbs"]
     },
     {
         name: "Moroi",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚖️ MOYEN",
-        clues: ["Spirit Box", "Température", "Orbes"]
+        clues: ["spiritbox", "temperature", "orbs"]
     },
     {
         name: "Shade",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "🐢 LENT",
-        clues: ["Température", "Playful", "Orbes"]
+        clues: ["temperature", "playful", "orbs"]
     },
     {
         name: "Jumbee",
         grid: "✅ OUI",
         danger: "🔴 LÉTAL",
         speed: "⚖️ MOYEN",
-        clues: ["Spirit Box", "Température", "EMF"]
+        clues: ["spiritbox", "temperature", "emf"]
     }
 ];
 
@@ -131,16 +131,20 @@ function update() {
         card.className = "card";
         const cluesHTML = ghost.clues.map(c => {
             const translated = window.__LANG__.cluesLabels[c] || c;
+            const icon = window.__LANG__.cluesIcons[c] || "";
+            const iconHTML = icon ? `<img src="icons/${icon}" class="icon-small"> ` : "";
+
             if (selected.size > 0) {
                 if (selected.has(c)) {
-                    return `<span class='highlight'>${translated}</span>`;
+                    return `<span class='highlight'>${iconHTML}${translated}</span>`;
                 } else {
-                    return `<span class='nonmatch'>${translated}</span>`;
+                    return `<span class='nonmatch'>${iconHTML}${translated}</span>`;
                 }
             } else {
-                return translated;
+                return `${iconHTML}${translated}`;
             }
         }).join(",<br>");
+
         card.innerHTML = `
             <h3>${ghost.name}</h3>
 
@@ -218,12 +222,12 @@ const LANG = {
             clues: "🔍 Indices"
         },
         cluesLabels: {
-            "EMF": "🚨 EMF",
-            "Ghost Writing": "✒️ Ghost Writing",
-            "Orbes": "✨ Orbes",
-            "Spirit Box": "🔊 Spirit Box",
-            "Température": "🌡️ Température",
-            "Playful": "😈 Playful"
+            "emf": "EMF",
+            "ghost_writing": "Ghost Writing",
+            "orbs": "Orbes",
+            "spiritbox": "Spirit Box",
+            "temperature": "Température",
+            "playful": "Playful"
         },
         gridLabels: {
             "✅ OUI": "✅ OUI",
@@ -249,6 +253,14 @@ const LANG = {
             p3: "...peuvent changer de façon imprévisible selon la partie ou après une mise à jour du jeu.",
             p4: "🎯 Utilisez les informations comme guide de référence, mais faites toujours confiance à vos propres analyses en partie. Restez vigilants, enquêteurs. 👻",
         },
+        cluesIcons: {
+            "emf": "emf.svg",
+            "ghost_writing": "ghost_writing.svg",
+            "orbs": "orbs.svg",
+            "spiritbox": "spiritbox.svg",
+            "temperature": "temperature.svg",
+            "playful": "playful.svg"
+        },
     },
     en: {
         title: "Phantom Investigation App",
@@ -265,12 +277,12 @@ const LANG = {
             clues: "🔍 Clues"
         },
         cluesLabels: {
-            "EMF": "🚨 EMF",
-            "Ghost Writing": "✒️ Ghost Writing",
-            "Orbes": "✨ Orbs",
-            "Spirit Box": "🔊 Spirit Box",
-            "Température": "🌡️ Temperature",
-            "Playful": "😈 Playful"
+            "emf": "EMF",
+            "ghost_writing": "Ghost Writing",
+            "orbs": "Orbs",
+            "spiritbox": "Spirit Box",
+            "temperature": "Temperature",
+            "playful": "Playful"
         },
         gridLabels: {
             "✅ OUI": "✅ YES",
@@ -296,8 +308,54 @@ const LANG = {
         p3: "...can unpredictably change depending on the session or after a game update.",
         p4: "🎯 Use this information as a reference guide, but always rely on your own in-game analysis. Stay sharp, investigators. 👻",
         },
+        cluesIcons: {
+            "emf": "emf.svg",
+            "ghost_writing": "ghost_writing.svg",
+            "orbs": "orbs.svg",
+            "spiritbox": "spiritbox.svg",
+            "temperature": "temperature.svg",
+            "playful": "playful.svg"
+        },
     },
 };
+
+// Génération des indices à cocher
+function generateClues() {
+    const container = document.getElementById("clueContainer");
+    container.innerHTML = '';
+
+    const clues = Object.keys(window.__LANG__.cluesLabels);
+    
+    clues.forEach(clue => {
+        const label = document.createElement("label");
+        label.classList.add("clue-label");
+        
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.className = "clue-filter";
+        input.setAttribute("data-clue", clue);
+        input.value = clue;
+        
+        // Chargement de l'icône
+        const iconFile = window.__LANG__.cluesIcons[clue];
+        const img = document.createElement("img");
+        img.src = `icons/${iconFile}`;
+        img.className = "icon-small";
+        img.alt = clue;
+
+        label.appendChild(input);
+        label.appendChild(img);
+        label.append(" " + window.__LANG__.cluesLabels[clue]);
+        
+        container.appendChild(label);
+    });
+
+    // Ajoute les écouteurs sur les nouvelles cases
+    document.querySelectorAll(".clue-filter").forEach(box => {
+        box.addEventListener("change", update);
+    });
+}
+
 
 // Charger la langue appropriée au chargement de la page
 window.onload = () => {
@@ -345,14 +403,21 @@ function setLanguage(code) {
 
     // Mise à jour des libellés des indices cochables
     document.querySelectorAll(".clue-filter").forEach(input => {
-        const clue = input.getAttribute("data-clue");
-        const label = input.closest("label");
-        if (label && lang.cluesLabels[clue]) {
-            label.innerHTML = '';
-            label.appendChild(input);
-            label.insertAdjacentText('beforeend', ' ' + lang.cluesLabels[clue]);
-        }
-    });
+            const clue = input.getAttribute("data-clue");
+            const label = input.closest("label");
+            if (label && lang.cluesLabels[clue]) {
+                label.innerHTML = '';
+                label.appendChild(input);
+                const icon = lang.cluesIcons[clue] || "";
+                if (icon) {
+                    const img = document.createElement('img');
+                    img.src = `icons/${icon}`;
+                    img.className = 'icon-small';
+                    label.appendChild(img);
+                }
+                label.insertAdjacentText('beforeend', ' ' + lang.cluesLabels[clue]);
+            }
+        });
 
     // 🟨 Met à jour le contenu de la modale
     const modal = document.getElementById("myModal");
@@ -383,4 +448,18 @@ function setLanguage(code) {
 
     // Mettre à jour les cartes
     update();
+
+    // Mise à jour des indices
+    generateClues();
+    update();
 }
+
+const loader = new IconLoader();
+
+// Exemples d'injection :
+loader.loadIcon('emf', 'icon-emf');
+loader.loadIcon('spiritbox', 'icon-spiritbox');
+loader.loadIcon('playful', 'icon-playful');
+loader.loadIcon('ghost_writing', 'icon-ghost-writing');
+loader.loadIcon('orbs', 'icon-orbs');
+loader.loadIcon('temperature', 'icon-temperature');
