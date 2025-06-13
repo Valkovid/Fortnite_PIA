@@ -57,7 +57,7 @@
          🏷️ Version affichée en bas
     ============================ -->
     <div class="version-label">
-        Version : V2.8
+        Version : V2.8.1
     </div>
 
     <!-- ===========================
@@ -95,6 +95,35 @@
          👻 Cartes fantômes générées
     ============================ -->
     <div class="cards" id="ghostCards"></div>
+
+    <!-- ===========================
+        🏆 Pop-up fin de partie (Stats)
+    =========================== -->
+    <div id="endGameModal" class="modal">
+        <div class="modal-content endgame-content">
+            <span class="close-endgame">&times;</span>
+            <h2>Fin de Partie</h2>
+            <p>Résultat :</p>
+            <button class="result-btn" data-result="win">✅ Gagné</button>
+            <button class="result-btn" data-result="lose">❌ Perdu</button>
+
+            <p>Quel fantôme était présent ?</p>
+            <select id="ghostSelect"></select>
+
+            <br><br>
+            <button id="saveGameBtn" class="result-btn">💾 Enregistrer</button>
+        </div>
+    </div>
+
+    <!-- ===========================
+        📊 Bandeau Stats escamotable
+    =========================== -->
+    <div id="statsPanel" class="stats-panel">
+        <button id="toggleStatsBtn" class="stats-toggle">
+            <span class="stats-text">Stats</span>
+        </button>
+        <div class="stats-content" id="statsContent"></div>
+    </div>
 
     <!-- ===========================
          🔗 Scripts JS
