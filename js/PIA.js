@@ -108,14 +108,6 @@ function update() {
 }
 
 /* =========================================================
-   🖼 Génération du bouton reset
-========================================================= */
-function updateGrilleButtons() {
-    document.getElementById("grille-oui").classList.toggle("active", grilleOuiSelected);
-    document.getElementById("grille-non").classList.toggle("active", grilleNonSelected);
-}
-
-/* =========================================================
    🖼 Génération des indices à cocher
 ========================================================= */
 function generateClues() {
@@ -198,6 +190,15 @@ function setLanguage(code) {
 ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
     const resetButton = document.getElementById("resetButton");
+    if (resetButton) {
+        resetButton.innerHTML = '&#x1f501;';
+        resetButton.style.backgroundColor = "transparent";
+        resetButton.style.border = "none";
+        resetButton.style.boxShadow = "none";
+        resetButton.style.outline = "none";
+        resetButton.style.cursor = "pointer";
+        resetButton.style.fontSize = "20px";
+        resetButton.addEventListener("click", () => {
             // Réinitialisation des indices
             document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
                 box.checked = false;
@@ -206,8 +207,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 label.classList.remove("selected");
             });
 
+            // Réinitialisation de la grille
+            grilleOuiSelected = false;
+            grilleNonSelected = false;
+            updateGrilleButtons();
+
             // Mise à jour globale
             update();
+        });
+    }
 
     const langBtn = document.getElementById("languageButton");
     const langOptions = document.getElementById("languageOptions");
@@ -252,206 +260,3 @@ window.onload = () => {
     modal.style.display = "block";
     document.getElementsByClassName("close")[0].onclick = () => modal.style.display = "none";
 };
-
-/* =========================================================
-   🏆 Système de statistiques
-========================================================= */
-function initStatsSystem() {
-
-    const resetButton = document.getElementById("resetButton");
-    resetButton.addEventListener("click", () => {
-        preselectGhost();
-        document.getElementById("endGameModal").style.display = "block";
-    });
-
-    document.querySelectorAll(".result-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".result-btn").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-        });
-    });
-
-    function generateGhostSelect() {
-        const ghostSelect = document.getElementById("ghostSelect");
-
-        // Récupère les indices cochés
-        const selectedClues = Array.from(document.querySelectorAll(".clue-filter"))
-            .filter(box => box.checked)
-            .map(box => box.getAttribute("data-clue"));
-
-        const oui = grilleOuiSelected;
-        const non = grilleNonSelected;
-
-        // Cherche auto-préselection
-        let autoSelectName = null;
-
-        if (selectedClues.length === 3) {
-            const matchingGhosts = data.filter(ghost => {
-                const cluesMatch = selectedClues.every(clue => ghost.clues.includes(clue));
-
-                let grilleMatch = true;
-                if (oui) {
-                    grilleMatch = (ghost.grid === "✅ OUI" || ghost.grid === "🔁 RAREMENT");
-                } else if (non) {
-                    grilleMatch = (ghost.grid === "❌ NON");
-                }
-
-                return cluesMatch && grilleMatch;
-            });
-
-            if (matchingGhosts.length === 1) {
-                autoSelectName = matchingGhosts[0].name;
-            }
-        
-            console.log("Matching ghost name: ", autoSelectName);
-            console.log("Options disponibles : ");
-            Array.from(data).forEach(ghost => console.log(ghost.name));
-        
-        }
-
-        // (Re)génération de la liste proprement
-        ghostSelect.innerHTML = "";
-        data.forEach(ghost => {
-            const option = document.createElement("option");
-            option.value = ghost.name;
-            option.textContent = ghost.name;
-            if (ghost.name === autoSelectName) {
-                option.selected = true;
-            }
-            ghostSelect.appendChild(option);
-        });
-    }
-
-    document.getElementById("saveGameBtn").addEventListener("click", () => {
-        const resultBtn = document.querySelector(".result-btn.selected");
-        if (!resultBtn) {
-            alert("Sélectionne victoire ou défaite !");
-            return;
-        }
-        const result = resultBtn.getAttribute("data-result");
-        const ghost = ghostSelect.value;
-
-        let history = JSON.parse(localStorage.getItem("piaHistory") || "[]");
-        history.push({result, ghost});
-        localStorage.setItem("piaHistory", JSON.stringify(history));
-
-        document.getElementById("endGameModal").style.display = "none";
-
-        resetFiltersAndUpdate();
-        updateStatsPanel();
-    });
-
-    document.getElementById("toggleStatsBtn").addEventListener("click", () => {
-        const panel = document.getElementById("statsPanel");
-        panel.classList.toggle("open");
-        updateStatsPanel();
-    });
-
-    document.querySelector('.close-endgame').addEventListener("click", () => {
-        document.getElementById("endGameModal").style.display = "none";
-    });
-}
-
-function preselectGhost() {
-    const ghostSelect = document.getElementById("ghostSelect");
-
-    const selectedClues = Array.from(document.querySelectorAll(".clue-filter"))
-        .filter(box => box.checked)
-        .map(box => box.getAttribute("data-clue"));
-
-    const oui = grilleOuiSelected;
-    const non = grilleNonSelected;
-
-    let autoSelectName = null;
-
-    if (selectedClues.length === 3) {
-        const matchingGhosts = data.filter(ghost => {
-            const cluesMatch = selectedClues.every(clue => ghost.clues.includes(clue));
-
-            let grilleMatch = true;
-            if (oui) {
-                grilleMatch = (ghost.grid === "✅ OUI" || ghost.grid === "🔁 RAREMENT");
-            } else if (non) {
-                grilleMatch = (ghost.grid === "❌ NON");
-            }
-
-            return cluesMatch && grilleMatch;
-        });
-
-        if (matchingGhosts.length === 1) {
-            autoSelectName = matchingGhosts[0].name;
-        }
-    }
-
-    // On génère la liste AVEC la sélection directement
-    ghostSelect.innerHTML = "";
-
-    data.forEach(ghost => {
-        const option = document.createElement("option");
-        option.value = ghost.name;
-        option.textContent = ghost.name;
-        if (ghost.name === autoSelectName) {
-            option.selected = true;
-        }
-        ghostSelect.appendChild(option);
-    });
-}
-
-function resetFiltersAndUpdate() {
-    document.querySelectorAll(".filters input[type='checkbox']").forEach(box => {
-        box.checked = false;
-    });
-    document.querySelectorAll(".clue-label").forEach(label => {
-        label.classList.remove("selected");
-    });
-    grilleOuiSelected = false;
-    grilleNonSelected = false;
-    updateGrilleButtons();
-    update();
-}
-
-function updateStatsPanel() {
-    const content = document.getElementById("statsContent");
-    const history = JSON.parse(localStorage.getItem("piaHistory") || "[]");
-
-    const total = history.length;
-    const wins = history.filter(e => e.result === "win").length;
-    const losses = total - wins;
-
-    let perGhost = {};
-    history.forEach(e => {
-        if (!perGhost[e.ghost]) perGhost[e.ghost] = {total: 0, wins: 0};
-        perGhost[e.ghost].total++;
-        if (e.result === "win") perGhost[e.ghost].wins++;
-    });
-
-    let html = `<p>Parties jouées : ${total}</p>`;
-    html += `<p>✅ Victoires : ${wins}</p>`;
-    html += `<p>❌ Défaites : ${losses}</p><hr>`;
-
-    html += "<p>Fantômes :</p>";
-    for (let ghost in perGhost) {
-        const g = perGhost[ghost];
-        html += `${ghost} : ${g.total} (${g.wins} victoires)<br>`;
-    }
-
-    html += `<br><button id="clearStatsBtn" class="result-btn">🔄</button>`;
-
-    content.innerHTML = html;
-
-    // Gestion du bouton reset
-    const clearBtn = document.getElementById("clearStatsBtn");
-    clearBtn.addEventListener("click", () => {
-        if (confirm("Confirmer la remise à zéro des statistiques ?")) {
-            localStorage.removeItem("piaHistory");
-            updateStatsPanel();
-        }
-    });
-}
-
-/* =========================================================
-   🚀 Appel à l'initialisation des stats
-========================================================= */
-document.addEventListener('DOMContentLoaded', () => {
-    initStatsSystem();
-});
