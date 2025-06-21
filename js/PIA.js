@@ -111,8 +111,12 @@ function update() {
    🖼 Génération des indices à cocher
 ========================================================= */
 function generateClues() {
-    const container = document.getElementById("clueContainer");
-    container.innerHTML = '';
+    const clueContainer = document.getElementById("clueContainer");
+    clueContainer.innerHTML = '';
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "clue-wrapper";
+    clueContainer.appendChild(wrapper);
 
     const clues = Object.keys(window.__LANG__.cluesLabels);
     clues.forEach(clue => {
@@ -151,7 +155,7 @@ function generateClues() {
 
         label.appendChild(contentWrapper);
         label.appendChild(input);
-        container.appendChild(label);
+        wrapper.appendChild(label);
     });
 
     document.querySelectorAll(".clue-filter").forEach(box => {
