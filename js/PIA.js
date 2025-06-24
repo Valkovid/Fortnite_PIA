@@ -76,6 +76,7 @@ function update() {
     });
 
     document.getElementById("count").textContent = filtered.length;
+    updateClueHints(filtered);
 
     filtered.forEach(ghost => {
         const card = document.createElement("div");
@@ -251,6 +252,44 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("grille-non").classList.toggle("active", grilleNonSelected);
     }
 });
+
+/* =========================================================
+   🔧 Détection des indices encore possibles / désactivés
+========================================================= */
+function updateClueHints(filteredGhosts) {
+    const selectedClues = Array.from(document.querySelectorAll(".clue-filter"))
+        .filter(box => box.checked)
+        .map(box => box.getAttribute("data-clue"));
+
+    const clueLabels = document.querySelectorAll(".clue-label");
+
+    // Si aucun indice sélectionné → réinitialiser les effets
+    if (selectedClues.length === 0) {
+        clueLabels.forEach(label => {
+            label.classList.remove("hint-possible", "hint-useless");
+        });
+        return;
+    }
+
+    // Collecter les indices possibles
+    const allPossibleClues = new Set();
+    filteredGhosts.forEach(ghost => {
+        ghost.clues.forEach(clue => allPossibleClues.add(clue));
+    });
+
+    clueLabels.forEach(label => {
+        const clue = label.querySelector("input")?.getAttribute("data-clue");
+        if (!clue) return;
+
+        label.classList.remove("hint-possible", "hint-useless");
+
+        if (allPossibleClues.has(clue)) {
+            label.classList.add("hint-possible");
+        } else {
+            label.classList.add("hint-useless");
+        }
+    });
+}
 
 /* =========================================================
    🚀 Initialisation au chargement de la page
