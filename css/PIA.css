@@ -94,6 +94,20 @@ h1 {
     border-color: var(--primary-accent);
 }
 
+/* 💡 Indices encore possibles (non cochés) */
+.clue-label.hint-possible:not(.selected) {
+    box-shadow: 0 0 12px limegreen;
+    border-color: limegreen;
+}
+
+/* 🚫 Indices devenus inutiles (grisés + désactivés) */
+.clue-label.hint-useless:not(.selected) {
+    opacity: 0.3;
+    filter: grayscale(100%);
+    pointer-events: none;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
 /* ========================================
 📊 Compteur de résultats
 ======================================== */
